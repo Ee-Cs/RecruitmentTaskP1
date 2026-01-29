@@ -1,52 +1,53 @@
 package com.altapay.backend.repositories;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.altapay.backend.exceptions.UnableToLoadPaymentIdForShopOrderException;
 import com.altapay.backend.model.IModelFactory;
 import com.altapay.backend.model.OrderLine;
 import com.altapay.backend.model.Product;
 import com.altapay.backend.model.ShopOrder;
+import com.altapay.util.DummyDataHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopOrderRepository {
-	
-	private IModelFactory modelFactory;
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private final IModelFactory modelFactory;
 
-	public ShopOrderRepository(IModelFactory modelFactory)
-	{
-		this.modelFactory = modelFactory;
-	}
-	
-	public ShopOrder loadShopOrder(String shopOrderId)
-	{
-		ShopOrder order = modelFactory.getShopOrder(); 
-		order.setId(shopOrderId);
-		List<OrderLine> orderLines = new ArrayList<OrderLine>();
-		orderLines.add(getOrderLine("1","Keyboard",1));
-		order.setOrderLines(orderLines);
-		return order;
-	}
-	
-	private OrderLine getOrderLine(String productId, String name, int quantity) 
-	{
-		OrderLine orderLine = modelFactory.getOrderLine();
-		Product product = modelFactory.getProduct();
-		product.setId(productId);
-		product.setName(name);
-		orderLine.setProduct(product);
-		orderLine.setQuantity(quantity);
-		return orderLine;
-	}
+    public ShopOrderRepository(IModelFactory modelFactory) {
+        this.modelFactory = modelFactory;
+    }
 
-	public void saveShopOrder(ShopOrder shopOrder)
-	{
-		System.out.println("Hurray, you saved the shopOrder: "+shopOrder);
-	}
+    public ShopOrder loadShopOrder(String shopOrderId) {
+        final ShopOrder shopOrder = modelFactory.getShopOrder();
+        shopOrder.setId(shopOrderId);
+        final List<OrderLine> orderLines = new ArrayList<>();
+        orderLines.add(getOrderLine());
+        shopOrder.setOrderLines(orderLines);
+        logger.info("loadShopOrder(): shopOrder id[{}], orderLines size[{}]", shopOrderId, orderLines.size());
+        return shopOrder;
+    }
+
+    private OrderLine getOrderLine() {
+        final String id = DummyDataHelper.ORDER_LINE_PRODUCT_ID;
+        final String name = DummyDataHelper.ORDER_LINE_PRODUCT_NAME;
+        final int quantity = DummyDataHelper.ORDER_LINE_PRODUCT_QUANTITY;
+        final Product product = modelFactory.getProduct();
+        product.setId(id);
+        product.setName(name);
+        final OrderLine orderLine = modelFactory.getOrderLine();
+        orderLine.setProduct(product);
+        orderLine.setQuantity(quantity);
+        logger.info("getOrderLine(): product id[{}], product name[{}], quantity[{}]",
+                id, name, quantity);
+        return orderLine;
+    }
+
+    public void saveShopOrder(ShopOrder shopOrder) {
+        logger.info("saveShopOrder(): shopOrder id[{}], paymentId[{}]",
+                shopOrder.getId(), shopOrder.getPaymentId());
+    }
 
 }

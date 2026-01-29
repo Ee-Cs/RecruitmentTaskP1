@@ -1,52 +1,68 @@
 package com.altapay.backend.ioc;
 
 import com.altapay.backend.controllers.BackendController;
-import com.altapay.backend.model.IModelFactory;
-import com.altapay.backend.model.Inventory;
-import com.altapay.backend.model.OrderLine;
-import com.altapay.backend.model.Product;
-import com.altapay.backend.model.ShopOrder;
+import com.altapay.backend.model.*;
+import com.altapay.backend.repositories.InventoryRepository;
 import com.altapay.backend.repositories.ShopOrderRepository;
+import com.altapay.backend.services.InventoryService;
+import com.altapay.backend.services.MerchantApiService;
+import com.altapay.util.DummyDataHelper;
+import com.altapay.util.HttpUtil;
+import com.altapay.util.XpathUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 public class BackendContainer implements IModelFactory {
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private ShopOrderRepository shopOrderRepository = null;
 
-	public BackendController getBackendController() 
-	{
-		return new BackendController(getShopOrderRepository());
-	}
+    public BackendController getBackendController() {
+        return new BackendController(getShopOrderRepository());
+    }
 
-	// TODO: should be a singleton
-	public ShopOrderRepository getShopOrderRepository() 
-	{
-		return new ShopOrderRepository(this);
-	}
-	
-	@Override
-	public ShopOrder getShopOrder() 
-	{
-		// TODO: initialize a new ShopOrder with it's dependencies
-		return null;
-	}
+    public ShopOrderRepository getShopOrderRepository() {
+        if (shopOrderRepository == null) {
+            shopOrderRepository = new ShopOrderRepository(this);
+        }
+        return shopOrderRepository;
+    }
 
-	@Override
-	public Inventory getInventory() 
-	{
-		// TODO: initialize a new Inventory with it's dependencies
-		return null;
-	}
+    @Override
+    public ShopOrder getShopOrder() {
+        final InventoryRepository inventoryRepository = new InventoryRepository();
+        final InventoryService inventoryService = new InventoryService(inventoryRepository);
+        final MerchantApiService merchantApiService = new MerchantApiService(new HttpUtil(), new XpathUtil());
+        final ShopOrder shopOrder = new ShopOrder(inventoryService, merchantApiService);
+        DummyDataHelper.setShopOrderPaymentId(shopOrder);
+        logger.info("getShopOrder():");
+        return shopOrder;
+    }
 
-	@Override
-	public OrderLine getOrderLine() 
-	{
-		// TODO: initialize a new OrderLine with it's dependencies
-		return null;
-	}
+    @Override
+    public Inventory getInventory() {
+        final Inventory inventory = new Inventory();
+        final Product product = getProduct();
+        inventory.setProduct(product);
+        DummyDataHelper.setInventoryQuantity(inventory);
+        logger.info("getInventory(): product id[{}], inventory[{}]",
+                inventory.getProduct().getId(), inventory.getInventory());
+        return inventory;
+    }
 
-	@Override
-	public Product getProduct() 
-	{
-		// TODO: initialize a new Product with it's dependencies
-		return null;
-	}
+    @Override
+    public OrderLine getOrderLine() {
+        final OrderLine orderLine = new OrderLine();
+        logger.info("getOrderLine():");
+        return orderLine;
+    }
+
+    @Override
+    public Product getProduct() {
+        final Product product = new Product();
+        logger.info("getProduct():");
+        return product;
+    }
 
 }

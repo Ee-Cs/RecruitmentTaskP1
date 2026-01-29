@@ -12,8 +12,8 @@ subgraph BackendController
       SAVE[Save Shop Order]:::YellowBox
     end
     STOP@{ shape: dbl-circ, label: "Stop" }
-    COM1@{ shape: braces, label: "Controller entry point:<br/>BackendController::capturePayment(shopOrderId)" }
-    COM2@{ shape: braces, label: "Controller entry point:<br/>BackendController::releasePayment(shopOrderId)" }
+    COM1@{ shape: braces, label: "Controller entry point for capture:<br/>BackendController::capturePayment(shopOrderId)" }
+    COM2@{ shape: braces, label: "Controller entry point for release:<br/>BackendController::releasePayment(shopOrderId)" }
   end
 end
 class BackendController LightBlueBox

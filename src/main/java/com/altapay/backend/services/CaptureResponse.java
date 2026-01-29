@@ -1,9 +1,12 @@
 package com.altapay.backend.services;
 
-public class CaptureResponse {
-	private boolean successful;
+import com.altapay.util.DummyDataHelper;
 
-	public boolean wasSuccessful() {
-		return successful;
-	}
+public class CaptureResponse {
+    boolean successful = true;
+
+    public boolean wasSuccessful() {
+        DummyDataHelper.dummyCheck(successful);
+        return successful;
+    }
 }
