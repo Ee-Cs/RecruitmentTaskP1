@@ -1,3 +1,29 @@
+# Implementation Notes
+> [!IMPORTANT]
+>
+> This repository contains an implementation produced for the technical recruitment test. \
+> The implementation focuses on the domain logic and was developed using \
+> test-driven development (TDD) to validate and guide the design and behavior of the components.
+
+### References
+- 1️⃣ The [flowchart diagram](https://github.com/Ee-Cs/RecruitmentTaskP/blob/main/docs/flowchartDiagram.md)
+- 2️⃣ The [Capture Reservation](https://github.com/Ee-Cs/RecruitmentTaskP/blob/main/docs/captureReservationSequenceDiagram.md) sequence diagram
+- 3️⃣ The [Release Reservation](https://github.com/Ee-Cs/RecruitmentTaskP/blob/main/docs/releaseReservationSequenceDiagram.md) sequence diagram
+- 4️⃣ The [Test Run in IDEA IDE](Screenshot_TestsRunInIdea.jpg) screenshot
+
+### Some considerations
+- This project provides the core logic and components that would enable a containerized application \
+  to expose a `BackendController` as an API service, as described in the task brief.
+- In accordance with the exercise scope, no application entry point \
+  (Java `main` method) or framework bootstrap configuration (e.g., Spring Boot or Quarkus) has been included.
+- The project intentionally omits deployment and run-time configuration \
+  so the delivered artifacts remain an abstraction suitable for review and extension.
+
+▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
+> [!CAUTION]
+>
+> Below is the original README.md content.
+
 # Technical Test
 
 ## Instructions
@@ -14,9 +40,9 @@ There is no need for you to build such application, this is an abstraction test.
     - This is a local repository, there is no need to push anywhere. Just zip the project when you are done (with .git folder).
 - There is no time limitation, but we encourage not spending more than two hours
 
-Once the test is delivered, we will assess your work and we will call you in for a <u>follow up interview</u>.
+Once the test is delivered, we will assess your work, and we will call you in for a <u>follow-up interview</u>.
 
-## Follow Up Interview
+## Follow-Up Interview
 
 During the next interview we will take the chance to discuss your work and the design decisions that you have made.
 
