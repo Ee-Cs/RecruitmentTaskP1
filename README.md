@@ -6,10 +6,10 @@
 > test-driven development (TDD) to validate and guide the design and behavior of the components.
 
 ### References
-- 1️⃣ The [flowchart diagram](https://github.com/Ee-Cs/RecruitmentTaskP1/blob/main/docs/flowchartDiagram.md)
-- 2️⃣ The [Capture Reservation](https://github.com/Ee-Cs/RecruitmentTaskP1/blob/main/docs/captureReservationSequenceDiagram.md) sequence diagram
-- 3️⃣ The [Release Reservation](https://github.com/Ee-Cs/RecruitmentTaskP1/blob/main/docs/releaseReservationSequenceDiagram.md) sequence diagram
-- 4️⃣ The [Test Run in IDEA IDE](Screenshot_TestsRunInIdea.jpg) screenshot
+- 1️⃣ The [flowchart diagram](docs/flowchartDiagram.md)
+- 2️⃣ The [Capture Reservation](docs/captureReservationSequenceDiagram.md) sequence diagram
+- 3️⃣ The [Release Reservation](docs/releaseReservationSequenceDiagram.md) sequence diagram
+- 4️⃣ The [Test Run in IDEA IDE](docs/Screenshot_TestsRunInIdea.jpg) screenshot
 
 ### Some considerations
 - This project provides the core logic and components that would enable a containerized application \
